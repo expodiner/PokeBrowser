@@ -1,0 +1,74 @@
+﻿<Window
+    x:Class="PokeBrowser.Shell"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:local="clr-namespace:PokeBrowser"
+    xmlns:bh="http://schemas.microsoft.com/xaml/behaviors"
+    xmlns:prism="http://prismlibrary.com/"
+    prism:ViewModelLocator.AutoWireViewModel="True"
+    mc:Ignorable="d"
+    Title="MainWindow" Height="450" Width="800">
+
+    <bh:Interaction.Triggers>
+        <bh:EventTrigger EventName="Loaded">
+            <bh:InvokeCommandAction Command="{Binding LoadedCommand, Mode=OneTime}" />
+        </bh:EventTrigger>
+    </bh:Interaction.Triggers>
+    
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="240" />
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+
+        <DockPanel Grid.Column="0">
+            <Button DockPanel.Dock="Bottom"
+                    Content="Show more items"
+                    Command="{Binding ExtendCatalogItems, Mode=OneWay}" />
+            <ListView DockPanel.Dock="Top"
+                      ItemsSource="{Binding CatalogItems, Mode=OneWay}"
+                      SelectedItem="{Binding SelectedCatalogItem, Mode=TwoWay}">
+            </ListView>
+        </DockPanel>
+
+        <GridSplitter Grid.Column="1" />
+
+        <StackPanel Grid.Column="2" Orientation="Vertical">
+            <TextBlock Text="Id" />
+            <TextBox IsReadOnly="True" Text="{Binding Id, Mode=OneWay}" Margin="0,0,0,8" />
+
+            <TextBlock Text="Name" />
+            <TextBox IsReadOnly="True" Text="{Binding Name, Mode=OneWay}" Margin="0,0,0,8" />
+
+            <TextBlock Text="Height" />
+            <TextBox IsReadOnly="True" Text="{Binding Height, Mode=OneWay}" Margin="0,0,0,8" />
+
+            <TextBlock Text="Weight" />
+            <TextBox IsReadOnly="True" Text="{Binding Weight, Mode=OneWay}" Margin="0,0,0,8" />
+
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                
+                <StackPanel Grid.Column="0" Orientation="Vertical">
+                    <TextBlock Text="Front" />
+                    <Image Source="{Binding FrontImageSource, Mode=OneWay}"
+                           Stretch="Uniform" />
+                </StackPanel>
+
+                <StackPanel Grid.Column="1" Orientation="Vertical">
+                    <TextBlock Text="Back" />
+                    <Image Source="{Binding BackImageSource, Mode=OneWay}"
+                           Stretch="Uniform" />
+                </StackPanel>
+            </Grid>
+
+        </StackPanel>
+        
+    </Grid>
+</Window>
